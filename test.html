@@ -51,12 +51,12 @@
    */
   var deps = svg
         .append("g")
-      .attr("id", "departements");
+      .attr("id", "regions");
  
   /*
    * On charge les données GeoJSON
    */
-  d3.json('./regions/reg13.json', function(req, geojson) {
+  d3.json('regions.json', function(req, geojson) {
 
  
     /*
@@ -82,7 +82,7 @@
      */
     features.enter()
         .append("path")
-            .attr('class', 'departement')
+            .attr('class', 'regions')
             .attr('fill', function(d) { 
                 return colorScale(+d.properties.CODE_DEPT); 
             })
@@ -96,33 +96,82 @@
    * en cliquant sur les départements
    * Récupéré ici : http://bl.ocks.org/mbostock/2206340
    */
+
   var centered;
   function countyClickHandler(d) {
     var x, y, k;
+
+    var nomFichier;
+    switch(d.properties.Name) {
+    case "Nord-Pas-de-Calais et Picardie":
+	nomFichier = "./regions/reg9.json";
+        break;
+    case "Normandie":
+	nomFichier = "./regions/reg10.json";
+	break;
+    case "Île-de-France":
+	nomFichier = "./regions/reg7.json";
+	break;
+    case "Alsace, Champagne-Ardenne et Lorraine":
+	nomFichier = "./regions/reg1.json";
+	break;
+    case "Bourgogne et Franche-Comté":
+	nomFichier = "./regions/reg4.json";
+	break;
+    case "Centre-Val de Loire":
+	nomFichier = "./regions/reg6.json";
+	break;
+    case "Auvergne et Rhône-Alpes":
+	nomFichier = "./regions/reg3.json";
+	break;
+    case "Languedoc-Roussillon et Midi-Pyrénées":
+	nomFichier = "./regions/reg8.json";
+	break;
+    case "Provence-Alpes-Côte d'Azur":
+	nomFichier = "./regions/reg12.json";
+	break;
+    case "Corse":
+	nomFichier = "./regions/reg13.json";
+	break;
+    case "Aquitaine, Limousin et Poitou-Charentes":
+	nomFichier = "./regions/reg2.json";
+	break;
+    case "Pays de la Loire":
+	nomFichier = "./regions/reg11.json";
+	break;
+    case "Bretagne":
+	nomFichier = "./regions/reg5.json";
+	break;
+    default:
+	nomFichier = "regions.json";
+    }
+
+  /*
+   * On créait un groupe SVG qui va accueillir
+   * tous nos départements
+   */
+  var deps = svg
+        .append("g")
+      .attr("id", "departements");
+
+    d3.json(nomFichier, function(req, geojson) {
+
+    var features = deps
+            .selectAll("path")
+                .data(geojson.features);
+
+    var colorScale = d3.scale.category20c();
+
+    features.enter()
+        .append("path")
+            .attr('class', 'departement')
+            .attr('fill', function(d) { 
+                return colorScale(+d.properties.CODE_DEPT); 
+            })
+          .attr("d", path);
  
-    if (d && centered !== d) {
-            var centroid = path.centroid(d);
-            x = centroid[0];
-            y = centroid[1];
-            k = 5;
-            centered = d;
-        } else {
-            x = width / 2;
-            y = height / 2;
-            k = 1;
-            centered = null;
-        }
- 
-        deps.selectAll("path")
-            .classed("active", centered && function(d) { return d === centered; });
- 
-        var trStr = "translate(" + width / 2 + "," + height / 2 + ")" +
-            "scale(" + k + ")translate(" + -x + "," + -y + ")";
-         
-        deps.transition()
-            .duration(1000)
-            .attr("transform", trStr);
- 
+  });
+   
     };
  
 }());
