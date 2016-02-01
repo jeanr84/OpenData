@@ -5,3 +5,6 @@ Chommage.csv : http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713
 Reg_15_Resultats_Communes_T1_c.xlsx : Résultat du tour 1 sur Data.Gouv
 
 Statistique_Commune.xls : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat
+
+Pour executer le parser:
+java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
