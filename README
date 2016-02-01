@@ -11,4 +11,4 @@ java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
 
 
 Rajout des données dans mongoDB à partir d’un fichier CSV (se placer dans le dossier /res/data pour avoir accès au fichier Chommage.csv) : 
-mongoimport --db openData --collection chommage --type csv --file Chommage.csv --fields departement,tauxChomage
+mongoimport --db openData --collection chomages --type csv --file res/data/Chomage.csv --fields departement,tauxChomage
