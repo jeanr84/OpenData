@@ -8,3 +8,7 @@ Statistique_Commune.xls : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref
 
 Pour executer le parser:
 java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
+
+
+Rajout des données dans mongoDB à partir d’un fichier CSV (se placer dans le dossier /res/data pour avoir accès au fichier Chommage.csv) : 
+mongoimport --db openData --collection chommage --type csv --file Chommage.csv --fields departement,tauxChomage
