@@ -28,3 +28,9 @@ mongoimport --db openData --collection immigrationdepartements --type csv --file
 
 Rajout des données pour la collection naissancesdepartements dans mongoDB :
 mongoimport --db openData --collection naissancesdepartements --type csv --file res/data/naissances/naissancesDepartements.csv --fields _id,nbNaissances
+
+Rajout des données pour la collection naissancesdepartements dans mongoDB :
+mongoimport --db openData --collection revenudepartements --type csv --file res/data/revenuMedian/revenuMedianDepartements.csv --fields _id,revenuMedian
+
+Rajout des données pour la collection naissancesdepartements dans mongoDB :
+mongoimport --db openData --collection revenuregions --type csv --file res/data/revenuMedian/revenuMedianRegions.csv --fields _id,revenuMedian
