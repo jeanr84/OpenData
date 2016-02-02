@@ -13,8 +13,14 @@ java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
 Rajout des données pour la collection chomages dans mongoDB à partir du fichier CSV : 
 mongoimport --db openData --collection chomages --type csv --file res/data/Chomage.csv --fields departement,tauxChomage
 
-Rajout des données pour la collection nomListes dans mongoDB à partir du fichier JSON :
+Rajout des données pour la collection nomlistes dans mongoDB à partir du fichier JSON :
 mongoimport --db openData --collection nomlistes --file res/data/nomListe.json
 
-Rajout des données pour la collection regionsAvecDepartements dans mongoDB à partir du fichier JSON :
+Rajout des données pour la collection regionsavecdepartements dans mongoDB à partir du fichier JSON :
 mongoimport --db openData --collection regionsavecdepartements --file res/data/regionsDepartements.json
+
+Rajout des données pour la collection immigrationregions dans mongoDB : 
+mongoimport --db openData --collection immigrationregions --type csv --file res/data/immigration/immigrationRegions.csv --fields _id,nbImmigres,poucentageImmigres
+
+Rajout des données pour la collection immigrationdepartements dans mongoDB :
+mongoimport --db openData --collection immigrationdepartements --type csv --file res/data/immigration/immigrationDepartements.csv --fields _id,nbImmigres,poucentageImmigres
