@@ -88,7 +88,7 @@
                 return colorScale(+d.properties.CODE_DEPT); 
             })
           .attr("d", path)
-          .on('click', countyClickHandler);
+          .on('click', clickHandler);
  
   });
  
@@ -99,7 +99,7 @@
    */
 
   var centered;
-  function countyClickHandler(d) {
+  function clickHandler(d) {
     var x, y, k;
 
     var nomFichier;
