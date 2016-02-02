@@ -22,4 +22,7 @@ db.chomages.drop()
 db.immigrationdepartements.drop()
 db.naissancesdepartements.drop()
 db.revenudepartements.drop()
+db.immigrationregions.drop()
+db.regionsavecdepartements.drop()
+db.revenuregions.drop()
 EOF
