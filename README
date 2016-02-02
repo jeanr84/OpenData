@@ -10,5 +10,11 @@ Pour executer le parser:
 java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
 
 
-Rajout des données dans mongoDB à partir d’un fichier CSV (se placer dans le dossier /res/data pour avoir accès au fichier Chommage.csv) : 
+Rajout des données pour la collection chomages dans mongoDB à partir du fichier CSV : 
 mongoimport --db openData --collection chomages --type csv --file res/data/Chomage.csv --fields departement,tauxChomage
+
+Rajout des données pour la collection nomListes dans mongoDB à partir du fichier JSON :
+mongoimport --db openData --collection nomListes --file res/data/nomListe.json
+
+Rajout des données pour la collection regionsAvecDepartements dans mongoDB à partir du fichier JSON :
+mongoimport --db openData --collection regionsAvecDepartements --file res/data/regionsDepartements.json
