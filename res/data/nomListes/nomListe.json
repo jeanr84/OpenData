@@ -1,79 +1,76 @@
-{ "listes": 
-	[{
-		"_id": "LDIV",
-		"nomL": "Divers"
-	},
-
-	{
-		"_id": "LCOM",
-		"nomL": "Parti Communiste Francais"
-	},
-	{
-		"_id": "LECO",
-		"nomL": "Alliance Ecologiste Indépendante"
-	},
-	{
-		"_id": "LVEC",
-		"nomL": "Europe-Ecologie-Les Verts"
-	},
-	{
-		"_id": "LUD",
-		"nomL": "Union de la Droite"
-	},
-	{
-		"_id": "LUDI",
-		"nomL": "Union des Démocrates et des Indépendants"
-	},
-	{
-		"_id": "LUG",
-		"nomL": "Union de la Gauche"
-	},
-	{
-		"_id": "LDLF",
-		"nomL": "Debout la France"
-	},
-	{
-		"_id": "LDVG",
-		"nomL": "Divers Gauche"
-	},
-	{
-		"_id": "LFN",
-		"nomL": "Front National"
-	},
-	{
-		"_id": "LEXG",
-		"nomL": "Extrême Gauche"
-	},
-	{
-		"_id": "LEXD",
-		"nomL": "Extrême Droite"
-	},
-	{
-		"_id": "LFG",
-		"nomL": "Front de Gauche"
-	},
-	{
-		"_id": "LDVD",
-		"nomL": "Divers Droite"
-	},
-	{
-		"_id": "LREG",
-		"nomL": "Régionaliste"
-	},
-	{
-		"_id": "LVEG",
-		"nomL": "Vert-Ecologiste Gauche"
-	},
-	{
-		"_id": "LRDG",
-		"nomL": "Parti Radical de Gauche"
-	},
-	{
-		"_id": "LSOC",
-		"nomL": "Parti Socialiste"
-	},
-	{
-		"_id": "LMDM",
-		"nomL": "Mouvement Démocrate"
-	}]
+{
+	"_id": "LDIV",
+	"nomL": "Divers"
+}
+{
+	"_id": "LCOM",
+	"nomL": "Parti Communiste Francais"
+}
+{
+	"_id": "LECO",
+	"nomL": "Alliance Ecologiste Indépendante"
+}
+{
+	"_id": "LVEC",
+	"nomL": "Europe-Ecologie-Les Verts"
+}
+{
+	"_id": "LUD",
+	"nomL": "Union de la Droite"
+}
+{
+	"_id": "LUDI",
+	"nomL": "Union des Démocrates et des Indépendants"
+}
+{
+	"_id": "LUG",
+	"nomL": "Union de la Gauche"
+}
+{
+	"_id": "LDLF",
+	"nomL": "Debout la France"
+}
+{
+	"_id": "LDVG",
+	"nomL": "Divers Gauche"
+}
+{
+	"_id": "LFN",
+	"nomL": "Front National"
+}
+{
+	"_id": "LEXG",
+	"nomL": "Extrême Gauche"
+}
+{
+	"_id": "LEXD",
+	"nomL": "Extrême Droite"
+}
+{
+	"_id": "LFG",
+	"nomL": "Front de Gauche"
+}
+{
+	"_id": "LDVD",
+	"nomL": "Divers Droite"
+}
+{
+	"_id": "LREG",
+	"nomL": "Régionaliste"
+}
+{
+	"_id": "LVEG",
+	"nomL": "Vert-Ecologiste Gauche"
+}
+{
+	"_id": "LRDG",
+	"nomL": "Parti Radical de Gauche"
+}
+{
+	"_id": "LSOC",
+	"nomL": "Parti Socialiste"
+}
+{
+	"_id": "LMDM",
+	"nomL": "Mouvement Démocrate"
 }

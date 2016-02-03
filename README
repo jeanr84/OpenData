@@ -15,7 +15,7 @@ Rajout des données pour la collection chomages dans mongoDB :
 mongoimport --db openData --collection chomages --type csv --file res/data/chomage.csv --fields departement,tauxChomage
 
 Rajout des données pour la collection nomlistes dans mongoDB :
-mongoimport --db openData --collection nomlistes --file res/data/nomListe.json
+mongoimport --db openData --collection nomlistes --type json --file res/data/nomListe.json
 
 Rajout des données pour la collection regionsavecdepartements dans mongoDB :
 mongoimport --db openData --collection regionsavecdepartements --file res/data/regionsDepartements.json
