@@ -16,8 +16,6 @@
     this.setCritere = function (val) {
       critere = val;
     };
-
-
   }
 
   function SelectCritereController($scope, mlSelectCritereService) {
