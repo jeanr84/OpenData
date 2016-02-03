@@ -3,9 +3,9 @@
 
   angular
     .module('material-lite')
-    .controller('ChartController', ['$scope', ChartController]);
+    .controller('ChartController', ['$scope', 'mlSelectCritereService', ChartController]);
 
-  function ChartController($scope) {
+  function ChartController($scope, mlSelectCritereService) {
     function x(d) {
       return d.income;
     }

@@ -27,7 +27,7 @@
       <span>Critère</span>&nbsp;
       <ui-select ng-model="choixCritere.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="false">
         <ui-select-match placeholder="Critère choisi">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="choixCritere in criteres | filter: $select.search">
+        <ui-select-choices repeat="choixCritere in criteres | filter: $select.search" ng-click="selectCritere(choixCritere)">
           <div ng-bind-html="choixCritere.name | highlight: $select.search"></div>
         </ui-select-choices>
       </ui-select>
