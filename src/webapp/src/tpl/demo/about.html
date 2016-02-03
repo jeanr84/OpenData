@@ -49,16 +49,27 @@
 
               <div class="mdl-tabs__panel is-active" id="starks-panel">
                 <div class="p-20">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta, est et vehicula suscipit, turpis
-                  dui posuere ante, id hendrerit dolor neque a enim. Mauris auctor, augue eu maximus sodales, sapien
-                  eros semper diam, eu sodales ipsum orci tempus quam. Integer interdum velit vel neque ornare, in
-                  semper leo sollicitudin. Praesent aliquet turpis a libero venenatis imperdiet. Nullam maximus, mauris
-                  sit amet condimentum ullamcorper, nunc elit mollis nisl, ut finibus dui purus ut nunc. Donec et mi a
-                  velit convallis euismod eu mollis metus. Nulla ullamcorper ex convallis lorem iaculis, sed eleifend
-                  dolor hendrerit. Nullam vel vehicula libero, at pellentesque nulla. Duis accumsan lectus sed metus
-                  convallis cursus. Duis sit amet vehicula sem. Vivamus interdum luctus purus sit amet placerat.
-                  Curabitur sodales convallis nunc, mollis aliquet mauris consequat ac. Proin rutrum libero vel maximus
-                  tincidunt.
+                  Notre projet "Challenge Open Data" se porte sur les résultats des élections régionales de 2015. Ces données ont été mises en corrélation avec les données sur le chômage, le revenu médian et les données d'immigration.
+                  Les sources des données sont les suivantes : 
+- Données sur le chomage : http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713
+- Données d’immigration par départements : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012
+- Données d’immigration par régions : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012#tab_1=2
+- Données sur les statistiques globales (utilisées pour le nombre de naissances) : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat
+- Données sur le revenu médian par départements et régions : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=revenu-pauvrete-menage
+- Résultats du tour 1 pour les élections départementales 2015 (Reg_15_Resultats_Communes_T1_c.xlsx) : https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-1/
+- Résultats du tour 2 pour les élections départementales 2015 (Reg_15_Resultats_Communes_T2.xlsx) : https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-2/
+
+                  Les données récupérées ont été parsées afin de pouvoir les intégrer à une base de données MongoDB. Nous avons pu les mettre en relation afin d'obtenir 4 tables : 
+                  - Les départements 
+                  - Les régions
+                  - Les communes
+                  - Les partis
+                  Le schéma suivant illustre la répartition des données dans la base :
+
+                  Le schéma d'architecture est le suivant :
+                  Les technologies utilisées sont les suivantes : la base de données utilisée est une base MongoDB, avec importations de fichiers .csv et .json. Le parsage a été effectué en langage Java.
+                  Au niveau du serveur, 
+                  Au niveau de l'interface utilisateur,  
                 </div>
 
               </div>
