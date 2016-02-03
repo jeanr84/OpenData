@@ -1,0 +1,25 @@
+
+Jean Robin
+Lacroix Adrien
+Laporte Laura
+Renouvin Guillaume
+
+*** Pre requis ***
+
+git clone
+
+brew install nodejs
+npm install -g express-generator@4
+brew install mongodb && mongod
+
+*** Install API RESTful Projet OpenData ***
+
+cd OpenData
+
+npm install
+npm install mocha
+npm install mongoose --save
+
+mongod // Sur un autre terminal, lance mongo
+
+npm start // Lance le serveur
