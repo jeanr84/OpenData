@@ -11,11 +11,11 @@
 
     this.getCritere = function () {
       return critere;
-    }
+    };
 
     this.setCritere = function (val) {
       critere = val;
-    }
+    };
 
 
   }
@@ -33,7 +33,7 @@
 
     $scope.selectCritere = function (choixCritere) {
       mlSelectCritereService.setCritere(choixCritere.selected.name);
-    }
+    };
   }
 
 })();
