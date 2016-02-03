@@ -11,37 +11,30 @@
       <a class="mdl-navigation__link" href="#/chart"><i class="mdl-color-text--blue-grey-400 material-icons">insert_chart</i>Graphique</a>
     </ml-menu-item>
 
-    <div class="mdl-navigation__link" ng-controller="SelectController">
+    <div class="mdl-navigation__link" ng-controller="selectPartiController">
       <span>Parti</span>&nbsp;
-      <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="true">
-        <ui-select-match placeholder="Parti choisi">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="person in people | filter: $select.search">
-          <div ng-bind-html="person.name | highlight: $select.search"></div>
-          <small>
-            {{person.email}}
-          </small>
-        </ui-select-choices>
+      <ui-select ng-model="choixParti.selected" ng-maxlength="5" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="true">
+        <ui-select-match placeholder="Parti choisi">{{$select.selected.nomL}}</ui-select-match>
+         <ui-select-choices repeat="choixParti in partis | filter: $select.search">
+           <div ng-bind-html="choixParti.nomL | highlight: $select.search"></div>
+
+         </ui-select-choices>
       </ui-select>
     </div>
 
-    <div class="mdl-navigation__link" ng-controller="SelectController">
+
+    <div class="mdl-navigation__link" ng-controller="SelectCritereController">
       <span>Critère</span>&nbsp;
-      <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="false">
+      <ui-select ng-model="choixCritere.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="false">
         <ui-select-match placeholder="Critère choisi">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="person in people | filter: $select.search">
-          <div ng-bind-html="person.name | highlight: $select.search"></div>
-          <small>
-            {{person.email}}
-          </small>
+        <ui-select-choices repeat="choixCritere in criteres | filter: $select.search" ng-click="selectCritere(choixCritere)">
+          <div ng-bind-html="choixCritere.name | highlight: $select.search"></div>
         </ui-select-choices>
       </ui-select>
     </div>
 
     <ml-menu-item>
       <a class="mdl-navigation__link" href="#/map"><i class="mdl-color-text--blue-grey-400 material-icons">location_on</i>Carte des résultats</a>
-    </ml-menu-item>
-    <ml-menu-item>
-      <a class="mdl-navigation__link" href="#/preferences"><i class="mdl-color-text--blue-grey-400 material-icons">settings</i>Préférences</a>
     </ml-menu-item>
     <ml-menu-item>
       <a class="mdl-navigation__link" href="#/about"><i class="mdl-color-text--blue-grey-400 material-icons">info</i>À propos</a>

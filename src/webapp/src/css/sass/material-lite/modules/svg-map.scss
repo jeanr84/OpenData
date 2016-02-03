@@ -6,10 +6,18 @@ ml-svg-map {
     -webkit-transition: stroke 0.5s, stroke-width 0.5s;
     -o-transition: stroke 0.5s, stroke-width 0.5s;
     transition: stroke 0.5s, stroke-width 0.5s;
-  }
-  svg path:hover , path.active {
-    cursor: pointer;
-    stroke-width: 4;
-    stroke: #CCC;
+
+    &:hover, &.active {
+      cursor: pointer;
+      stroke-width: 4;
+      stroke: #CCC;
+    }
+
+    &.transparent {
+      fill: transparent;
+    }
+    &.neutral {
+      fill: #000;
+    }
   }
 }

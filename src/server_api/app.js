@@ -26,6 +26,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// add access control allow origin
+app.use(function(req, res, next) {
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE')
+        if (req.method === 'OPTIONS') return res.send(200)
+    }
+    next()
+}) 
+
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/commune', commune);

@@ -12,13 +12,14 @@ brew install nodejs
 npm install -g express-generator@4
 brew install mongodb && mongod
 
+sudo apt-get install libkrb5-dev
+
 *** Install API RESTful Projet OpenData ***
 
-cd OpenData
+cd opendata/server_api
 
 npm install
-npm install mocha
-npm install mongoose --save
+npm install mongoose
 
 mongod // Sur un autre terminal, lance mongo
 
