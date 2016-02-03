@@ -26,24 +26,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// add access control allow origin
+app.use(function(req, res, next) {
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE')
+        if (req.method === 'OPTIONS') return res.send(200)
+    }
+    next()
+}) 
+
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/commune', commune);
 app.use('/departement', departement);
 app.use('/region', region);
 app.use('/nomListe', nomListe);
-
-// add access control allow origin
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-}
-
-app.configure(function() {
-    app.use(allowCrossDomain);
-}); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
