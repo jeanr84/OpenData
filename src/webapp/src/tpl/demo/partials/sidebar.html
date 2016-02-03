@@ -11,7 +11,7 @@
       <a class="mdl-navigation__link" href="#/chart"><i class="mdl-color-text--blue-grey-400 material-icons">insert_chart</i>Graphique</a>
     </ml-menu-item>
 
-    <div class="mdl-navigation__link" ng-controller="SelectController">
+    <div class="mdl-navigation__link" ng-controller="SelectPartiController">
       <span>Parti</span>&nbsp;
       <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="true">
         <ui-select-match placeholder="Parti choisi">{{$select.selected.name}}</ui-select-match>
