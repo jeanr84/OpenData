@@ -1,0 +1,36 @@
+#d3_chart {
+  margin-left: -40px;
+
+  text {
+    font: 10px sans-serif;
+  }
+}
+
+.d3_dot {
+  stroke: #000;
+}
+
+.d3_axis path, .d3_axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.d3_label {
+  fill: #777;
+}
+
+.d3_year.d3_label {
+  font: 500 196px "Helvetica Neue";
+  fill: #ddd;
+}
+
+.d3_year.d3_label.d3_active {
+  fill: #aaa;
+}
+
+.d3_overlay {
+  fill: none;
+  pointer-events: all;
+  cursor: ew-resize;
+}

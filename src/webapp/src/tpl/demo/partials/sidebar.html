@@ -1,0 +1,50 @@
+<div class="demo-drawer mdl-layout__drawer mdl-color-text--blue-grey-50 mdl-color--grey-900">
+  <header class="mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+
+    <div class="brand-logo p-20">
+        <img src="img/svg/logo.svg" alt="Logo ENSIMAG">
+    </div>
+  </header>
+
+  <ul ml-menu close-others="false" class="demo-navigation mdl-navigation">
+    <ml-menu-item>
+      <a class="mdl-navigation__link" href="#/chart"><i class="mdl-color-text--blue-grey-400 material-icons">insert_chart</i>Graphique</a>
+    </ml-menu-item>
+
+    <div class="mdl-navigation__link" ng-controller="SelectController">
+      <span>Parti</span>&nbsp;
+      <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="true">
+        <ui-select-match placeholder="Parti choisi">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="person in people | filter: $select.search">
+          <div ng-bind-html="person.name | highlight: $select.search"></div>
+          <small>
+            {{person.email}}
+          </small>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+
+    <div class="mdl-navigation__link" ng-controller="SelectController">
+      <span>Critère</span>&nbsp;
+      <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="false">
+        <ui-select-match placeholder="Critère choisi">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="person in people | filter: $select.search">
+          <div ng-bind-html="person.name | highlight: $select.search"></div>
+          <small>
+            {{person.email}}
+          </small>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+
+    <ml-menu-item>
+      <a class="mdl-navigation__link" href="#/map"><i class="mdl-color-text--blue-grey-400 material-icons">location_on</i>Carte des résultats</a>
+    </ml-menu-item>
+    <ml-menu-item>
+      <a class="mdl-navigation__link" href="#/preferences"><i class="mdl-color-text--blue-grey-400 material-icons">settings</i>Préférences</a>
+    </ml-menu-item>
+    <ml-menu-item>
+      <a class="mdl-navigation__link" href="#/about"><i class="mdl-color-text--blue-grey-400 material-icons">info</i>À propos</a>
+    </ml-menu-item>
+  </ul>
+</div>
