@@ -1,0 +1,36 @@
+<section class="chart">
+
+  <div class="mdl-color--light-blue ml-header relative clear">
+    <div class="p-20">
+      <h3 class="mdl-color-text--white m-t-20 m-b-5">Régionales 2015</h3>
+      <h4 class="mdl-color-text--light-blue-100 m-b-20 no-m-t w100">Color in material design is inspired by bold hues juxtaposed with muted environments, deep shadows, and bright highlights.</h4>
+    </div>
+  </div>
+
+  <div class="mdl-grid mdl-grid--no-spacing">
+
+    <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--12-col-phone no-p-l">
+      <div class="p-20 ml-card-holder ml-card-holder-first">
+        <div class="mdl-card mdl-shadow--1dp" ng-controller="ChartController">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Graphique</h2>
+          </div>
+          <div class="p-30" id="d3_chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone no-p-l">
+      <div class="p-20 ml-card-holder ml-card-holder-first">
+        <div class="mdl-card mdl-shadow--1dp" ng-controller="MapController">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Carte</h2>
+          </div>
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>

@@ -1,0 +1,52 @@
+<section class="vector-map">
+
+  <div class="mdl-color--blue-A100 ml-header relative clear">
+    <div class="p-20">
+      <h3 class="mdl-color-text--white m-t-20 m-b-5">Résultats des régionales de 2015 par région</h3>
+      <h4 class="mdl-color-text--blue-50 m-b-20 no-m-t w100">Basic directive to load an SVG map</h4>
+    </div>
+  </div>
+
+  <div class="mdl-grid mdl-grid--no-spacing">
+
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-color--grey-100">
+      <div class="p-40 p-r-20 p-20--small">
+        <div class=" mdl-color-text--blue-grey-400">
+          <h3><i class="material-icons f-left m-r-5">location_on</i> Légende</h3>
+          <p>Use this directive to load an SVG map into your application.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+      <div class="p-20 ml-card-holder ml-card-holder-first">
+        <div class="mdl-card mdl-shadow--1dp">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Les résultats des deux tours</h2>
+          </div>
+          <div class="p-30">
+            <div class="mdl-tabs mdl-js-tabs">
+              <div class="mdl-tabs__tab-bar">
+                <a href="#first-panel" class="mdl-tabs__tab is-active">1er tour</a>
+                <a href="#second-panel" class="mdl-tabs__tab">2nd tour</a>
+              </div>
+
+              <div class="mdl-tabs__panel is-active" id="first-panel">
+                <div class="p-20">
+                  <ml-svg-map template-url="img/svg/france_map.svg" />
+                </div>
+              </div>
+              <div class="mdl-tabs__panel" id="second-panel">
+                <div class="p-20">
+                  <ml-svg-map template-url="img/svg/france_map.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
