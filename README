@@ -1,16 +1,20 @@
-Sources
+SOURCES DES DONNEES :
+- Données sur le chomage : http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713
+- Données d’immigration par départements : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012
+- Données d’immigration par régions : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012#tab_1=2
+- Données sur les statistiques globales (utilisées pour le nombre de naissances) : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat
+- Données sur le revenu médian par départements et régions : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=revenu-pauvrete-menage
 
-Chommage.csv : http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713
+- Résultats du tour 1 pour les élections départementales 2015 (Reg_15_Resultats_Communes_T1_c.xlsx) : https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-1/
+- Résultats du tour 2 pour les élections départementales 2015 (Reg_15_Resultats_Communes_T2.xlsx) : https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-2/
 
-Reg_15_Resultats_Communes_T1_c.xlsx : Résultat du tour 1 sur Data.Gouv
 
-Statistique_Commune.xls : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat
 
 Pour executer le parser:
 java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
 
 
-
+RAJOUT DES DONNEES DANS MONGODB :
 Rajout des données pour la collection chomages dans mongoDB : 
 mongoimport --db openData --collection chomages --type csv --file res/data/chomage.csv --fields departement,tauxChomage
 
