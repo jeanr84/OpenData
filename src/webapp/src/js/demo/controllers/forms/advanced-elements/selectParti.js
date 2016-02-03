@@ -10,8 +10,9 @@
     // Controller
     .controller('selectPartiController', ['$scope', 'selectPartiService', function ($scope, selectPartiService) {
       selectPartiService.success(function(data){
+        console.log(data);
         $scope.choixParti = {};
-        $scope.partis = data;
+        $scope.partis = data[0].listes;
         $scope.selectedState = '';
       }).error(function(data, status){
         console.log(data, status);
