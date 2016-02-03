@@ -7,14 +7,14 @@
     .controller('SelectCritereController', ['$scope', 'mlSelectCritereService', SelectCritereController]);
 
   function SelectCritereService() {
-    var test = "guigui";
+    var critere = "";
 
-    this.getTest = function () {
-      return test;
+    this.getCritere = function () {
+      return critere;
     }
 
-    this.setTest = function (val) {
-      test = val;
+    this.setCritere = function (val) {
+      critere = val;
     }
 
 
@@ -23,16 +23,16 @@
   function SelectCritereController($scope, mlSelectCritereService) {
     $scope.choixCritere = {};
     $scope.criteres = [
-      { name: 'Taux de chomage', nomMongo: 'pourcentageIm'},
+      { name: 'Taux de chomage', nomMongo: 'tauxChom'},
       { name: 'Revenu median', nomMongo: 'revenuMed'},
-      { name: "Taux d'immigration", nomMongo: 'tauxChom'},
+      { name: "Taux d'immigration", nomMongo: 'pourcentageIm'},
       { name: 'Nombre de naissance',    nomMongo: 'nbrNais'},
     ];
     $scope.selectedState = '';
 
 
     $scope.selectCritere = function (choixCritere) {
-      console.log(choixCritere);
+      mlSelectCritereService.setCritere(choixCritere.selected.name);
     }
   }
 
