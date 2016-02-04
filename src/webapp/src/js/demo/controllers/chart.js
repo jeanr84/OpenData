@@ -5,6 +5,7 @@
     .module('material-lite')
     .service('ChartUpdateService', ChartUpdateService)
     .controller('ChartController', ['$scope', '$http', 'ChartUpdateService', 'mlSvgMapService', ChartController]);
+
   function ChartUpdateService() {
     var axis_Y = null;
     var svg = null;
@@ -46,7 +47,18 @@
       d3.select("svg .y.d3_axis").remove();
       var ecart = (max - min) * 0.2;
       this.ys = d3.scale.linear().domain([min - ecart, max + ecart]).range([h, 0]);
-      var yAxis = d3.svg.axis().scale(this.ys).orient("left");
+      var tickFormat;
+      if (min < 10000) {
+        tickFormat = function(d) {
+          return d + '%';
+        };
+      } else {
+        tickFormat = function(d) {
+          return d / 1000;
+        };
+      }
+
+      var yAxis = d3.svg.axis().scale(this.ys).orient("left").tickFormat(tickFormat);
       svg.append("g").attr("class", "y d3_axis").call(yAxis);
     };
 
@@ -54,7 +66,7 @@
       d3.select("svg .x.d3_axis").remove();
       var ecart = (max - min) * 0.1;
       this.xs = d3.scale.linear().domain([0, max + ecart]).range([0, w]);
-      var xAxis = d3.svg.axis().orient("bottom").scale(this.xs).ticks(8, d3.format(",d"));
+      var xAxis = d3.svg.axis().orient("bottom").scale(this.xs).tickFormat(d3.format(".1%"));
       svg.append("g").attr("class", "x d3_axis").attr("transform", "translate(0," + h + ")").call(xAxis);
     };
   }
@@ -96,6 +108,16 @@
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .style('z-index', '99999999999')
+      .offset([-10, 0])
+      .html(function(d) {
+        return '<strong>' + d.nom + '</strong><br/>';
+      });
+
+    svg.call(tip);
 
     ChartUpdateService.setXScale(svg, width);
 
@@ -219,13 +241,9 @@
           return d.color;
         })
         .call(position)
-        .sort(order);
-
-      // Add a title.
-      dot.append("title")
-        .text(function (d) {
-          return d.nom;
-        });
+        .sort(order)
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
 
       // Positions the dots based on data.
       function position(dot) {
