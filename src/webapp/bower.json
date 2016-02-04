@@ -1,20 +1,13 @@
 {
-  "name": "Material-Lite",
+  "name": "Challenge Open Data",
   "version": "1.0.0",
   "authors": [
-    "Theme Guys"
+    "Robin Jean",
+    "Adrien Lacroix",
+    "Laura Laporte",
+    "Guillaume Renouvin"
   ],
-  "license": "Envato REGULAR LICENSE",
-  "homepage": "http://themeforest.net/item/",
   "private": true,
-  "keywords": [
-    "AngularJS",
-    "Admin",
-    "Dashboard",
-    "Panel",
-    "App",
-    "Responsive"
-  ],
   "ignore": [
     "**/.*",
     "node_modules",

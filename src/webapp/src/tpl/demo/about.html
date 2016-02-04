@@ -8,33 +8,16 @@
     </div>
   </div>
 
-  <div class="mdl-grid mdl-grid--no-spacing">
-    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-color--grey-100">
-      <div class="p-40 p-r-20 p-20--small">
-        <div class=" mdl-color-text--blue-grey-400">
-          <h3><i class="material-icons f-left m-r-5">photo</i> Help</h3>
-          <p>Tabs are always presented in sets of two or more, and they make it easy to explore and switch among
-            different views or functional aspects of an app, or to browse categorized data sets individually.</p>
-          <div class="m-t-30">
-            <ul class="list-bordered">
-              <li>
-                <a target="_blank" href="http://www.getmdl.io/components/index.html#layout-section/tabs">
-                  <i class="material-icons m-r-5 f11">description</i>
-                  Tabs
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+  <div class="mdl-grid mdl-grid--no-spacing about">
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-color--grey-100">
     </div>
 
-    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+    <div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
       <div class="p-20 ml-card-holder ml-card-holder-first">
         <div class="mdl-card mdl-shadow--1dp">
 
           <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Tab example</h2>
+            <h2 class="mdl-card__title-text">À propos de ce projet</h2>
           </div>
 
           <div class="p-30">
@@ -49,27 +32,43 @@
 
               <div class="mdl-tabs__panel is-active" id="starks-panel">
                 <div class="p-20">
-                  Notre projet "Challenge Open Data" se porte sur les résultats des élections régionales de 2015. Ces données ont été mises en corrélation avec les données sur le chômage, le revenu médian et les données d'immigration.
-                  Les sources des données sont les suivantes : 
-- Données sur le chomage : http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713
-- Données d’immigration par départements : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012
-- Données d’immigration par régions : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012#tab_1=2
-- Données sur les statistiques globales (utilisées pour le nombre de naissances) : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat
-- Données sur le revenu médian par départements et régions : http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=revenu-pauvrete-menage
-- Résultats du tour 1 pour les élections départementales 2015 (Reg_15_Resultats_Communes_T1_c.xlsx) : https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-1/
-- Résultats du tour 2 pour les élections départementales 2015 (Reg_15_Resultats_Communes_T2.xlsx) : https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-2/
+                  Notre projet "Challenge Open Data" se porte sur les résultats des élections régionales de 2015. Ces
+                  données ont été mises en corrélation avec les données sur le chômage, le revenu médian et les données
+                  d'immigration.
+                  Les sources des données sont les suivantes :
+                  <ul>
+                    <li><a href="http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713">Données sur le chômage</a>
+                    </li>
+                    <li><a href="http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012">Données
+                      d’immigration par départements et régions</a></li>
+                    <li><a href="http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat">Données
+                      sur les statistiques globales (utilisées pour le nombre de naissances)</a></li>
+                    <li><a href="http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=revenu-pauvrete-menage">Données
+                      sur le revenu médian par départements et régions</a>
+                    </li>
+                    <li><a href="https://www.data.gouv.fr/fr/datasets/elections-departementales-2015-resultats-tour-1/">Résultats
+                      du tour 1 pour les élections départementales 2015</a>
+                    </li>
+                  </ul>
 
-                  Les données récupérées ont été parsées afin de pouvoir les intégrer à une base de données MongoDB. Nous avons pu les mettre en relation afin d'obtenir 4 tables : 
-                  - Les départements 
-                  - Les régions
-                  - Les communes
-                  - Les partis
+                  Les données récupérées ont été parsées afin de pouvoir les intégrer à une base de données MongoDB.
+                  Nous avons pu les mettre en relation afin d'obtenir 4 tables :
+                  <ul>
+                    <li>Les départements</li>
+                    <li>Les régions</li>
+                    <li>Les communes</li>
+                    <li>Les partis</li>
+                  </ul>
+
                   Le schéma suivant illustre la répartition des données dans la base :
 
+                  <img alt="schema" src="../img/devices.png"/>
+
                   Le schéma d'architecture est le suivant :
-                  Les technologies utilisées sont les suivantes : la base de données utilisée est une base MongoDB, avec importations de fichiers .csv et .json. Le parsage a été effectué en langage Java.
-                  Au niveau du serveur, 
-                  Au niveau de l'interface utilisateur,  
+                  Les technologies utilisées sont les suivantes : la base de données utilisée est une base MongoDB, avec
+                  importations de fichiers .csv et .json. Le parsage a été effectué en langage Java.
+                  Au niveau du serveur,
+                  Au niveau de l'interface utilisateur,
                 </div>
 
               </div>
@@ -77,20 +76,22 @@
                 <ul class="demo-list-icon mdl-list">
                   <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
-                      <i class="material-icons">person</i>
-                      Bryan Cranston
+                      Robin Jean
                     </span>
                   </li>
                   <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
-                      <i class="material-icons">person</i>
-                      Aaron Paul
+                      Adrien Lacroix
                     </span>
                   </li>
                   <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
-                      <i class="material-icons">person</i>
-                      Bob Odenkirk
+                      Laura Laporte
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                      Guillaume Renouvin
                     </span>
                   </li>
                 </ul>

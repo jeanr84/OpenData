@@ -290,10 +290,12 @@ img[src*=svg] {
   -webkit-border-radius: 100px;
 }
 
-
+.about {
+  text-align: justify;
+}
 
 .mdl-layout__drawer {
-
+  overflow-y: hidden;
 
   &::-webkit-scrollbar {
     width: 10px;

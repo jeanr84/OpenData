@@ -12,7 +12,6 @@
     </ml-menu-item>
 
     <div class="mdl-navigation__link" ng-controller="selectPartiController">
-      <span>Parti</span>&nbsp;
       <ui-select ng-model="choixParti.selected" ng-maxlength="5" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="true">
         <ui-select-match placeholder="Parti choisi">{{$select.selected.nomL}}</ui-select-match>
          <ui-select-choices repeat="choixParti in partis | filter: $select.search">
@@ -24,7 +23,6 @@
 
 
     <div class="mdl-navigation__link" ng-controller="SelectCritereController">
-      <span>Critère</span>&nbsp;
       <ui-select ng-model="choixCritere.selected" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="false">
         <ui-select-match placeholder="Critère choisi">{{$select.selected.name}}</ui-select-match>
         <ui-select-choices repeat="choixCritere in criteres | filter: $select.search" ng-click="selectCritere(choixCritere)">
@@ -33,6 +31,9 @@
       </ui-select>
     </div>
 
+    <ml-menu-item>
+      <a class="mdl-navigation__link" href="#/map"><i class="mdl-color-text--blue-grey-400 material-icons">search</i>Détails d'une commune</a>
+    </ml-menu-item>
     <ml-menu-item>
       <a class="mdl-navigation__link" href="#/map"><i class="mdl-color-text--blue-grey-400 material-icons">location_on</i>Carte des résultats</a>
     </ml-menu-item>
