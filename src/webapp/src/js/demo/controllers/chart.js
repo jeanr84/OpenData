@@ -7,17 +7,31 @@
     .controller('ChartController', ['$scope', '$http', 'ChartUpdateService', 'mlSvgMapService', ChartController]);
   function ChartUpdateService() {
     var axis_Y = null;
+    var svg = null;
+    var h = null;
 
-    this.tabReg = [];
+    var tabReg = [];
 
-    this.setYAxis = function(axis) {
+    this.setYAxis = function (axis) {
       axis_Y = axis;
     };
 
-    this.setYAxisLabel = function(label) {
+    this.setYScale = function (_svg, height) {
+      svg = _svg;
+      console.log(svg);
+      h = height;
+    };
+
+    this.setYAxisLabel = function (label) {
       axis_Y.text(label.selected.name + ' ' + label.selected.unit);
     };
 
+    this.changeScale = function (min, max) {
+      d3.select("svg .y.d3_axis").remove();
+      var yScale = d3.scale.linear().domain([min, max]).range([h, 0]);
+      var yAxis = d3.svg.axis().scale(yScale).orient("left");
+      svg.append("g").attr("class", "y d3_axis").call(yAxis);
+    };
   }
 
   function ChartController($scope, $http, ChartUpdateService, mlSvgMapService) {
@@ -49,14 +63,9 @@
       height = 300;
 
     // Various scales. These domains make assumptions of data, naturally.
-    var xScale = d3.scale.linear().domain([0, 60]).range([0, width]),//TODO : A CHANGER
-      yScale = d3.scale.linear().domain([0, 30]).range([height, 0]),// TODO: A CHANGER
-      radiusScale = d3.scale.sqrt().domain([0, 8e6]).range([0, 40]),
-      colorScale = d3.scale.category10();
-
-    // The x & y axes.
-    var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(8, d3.format(",d")),
-      yAxis = d3.svg.axis().scale(yScale).orient("left");
+    var xScale = d3.scale.linear().domain([0, 60]).range([0, width]);
+    var radiusScale = d3.scale.sqrt().domain([0, 8e6]).range([0, 40]);
+    var colorScale = d3.scale.category10();
 
     // Create the SVG container and set the origin.
     var svg = d3.select("#d3_chart").append("svg")
@@ -65,16 +74,14 @@
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    // The x & y axes.
+    var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(8, d3.format(",d"));
+
     // Add the x-axis.
     svg.append("g")
       .attr("class", "x d3_axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
-
-    // Add the y-axis.
-    svg.append("g")
-      .attr("class", "y d3_axis")
-      .call(yAxis);
 
     // Add an x-axis label.
     svg.append("text")
@@ -83,6 +90,8 @@
       .attr("x", width)
       .attr("y", height - 6)
       .text("Pourcentage du parti");
+
+    ChartUpdateService.setYScale(svg, height);
 
     // Add a y-axis label.
     ChartUpdateService.setYAxis(svg.append("text")
@@ -103,7 +112,7 @@
         if (mlSvgMapService.isInDetailMode()) {
           newV.forEach(createDepJSON);
         } else {
-            createRegJSON();
+          createRegJSON();
         }
       }
     }, true);
@@ -120,7 +129,7 @@
     function createRegJSON() {
       var regJSON = $http.get('http://localhost:3000/region/parti/LFN')
         .then(function successCallback(response) {
-          console.log(response.data);
+          console.log("couc");
           $scope.response = response;
         }, function errorCallback(response) {
           console.error(response);
@@ -128,16 +137,25 @@
     }
 
 
-
     $scope.$watch("response", function (newV, oldV) {
       if (newV) {
         tabJSON = tabJSON.concat(newV.data);
+        var arrayLength = tabJSON.length;
+        var min = tabJSON[0].tauxChom;
+        var max = tabJSON[0].tauxChom;
+        for (var i = 1; i < arrayLength; i++) {
+          if (tabJSON[i].tauxChom > max) {
+            max = tabJSON[i].tauxChom;
+          }
+          if (tabJSON[i].tauxChom < min) {
+            min = tabJSON[i].tauxChom;
+          }
+        }
+        console.log(min + " " + max);
+        ChartUpdateService.changeScale(min, max);
         draw(tabJSON);
       }
     });
-
-
-
 
     function draw(regions) {
       console.log(regions);
