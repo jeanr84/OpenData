@@ -5,10 +5,10 @@
     .module('ml.svg-map', [])
     .directive('mlSvgMap', ['$compile', 'mlSvgMapService', mlSvgMap])
     .directive('mlSvgMapRegion', ['$compile', 'mlSvgMapService', mlSvgMapRegion])
-    .service('mlSvgMapService', ['$http', SvgMapService])
+    .service('mlSvgMapService', ['$http', 'ChartUpdateService', SvgMapService])
     .filter('mlSvgMapColor', mlSvgMapColor);
 
-  function SvgMapService($http) {
+  function SvgMapService($http, ChartUpdateService) {
     var detailMode = [];
     var regions = {};
     var departements = {};
@@ -34,6 +34,8 @@
           detailMode.push(idRegion);
         }
 
+
+        ChartUpdateService.tabReg = detailMode;
         // if first element
         if (detailMode.length == 1) {
           regions = this.getRegions();
@@ -70,7 +72,7 @@
       return detailMode.indexOf(idRegion) != -1;
     };
 
-    this.isInDetailMode = function (idRegion) {
+    this.isInDetailMode = function () {
       return detailMode.length !== 0;
     };
 
