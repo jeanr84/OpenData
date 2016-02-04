@@ -4,22 +4,24 @@
   angular
     .module('material-lite')
     .service('ChartUpdateService', ChartUpdateService)
-    .controller('ChartController', ['$scope', '$http', 'ChartUpdateService', 'mlSelectCritereService', ChartController]);
+    .controller('ChartController', ['$scope', '$http', 'ChartUpdateService', ChartController]);
 
   function ChartUpdateService() {
     var axis_Y = null;
+
+    this.tabReg = [];
 
     this.setYAxis = function(axis) {
       axis_Y = axis;
     };
 
     this.setYAxisLabel = function(label) {
-      axis_Y.text(label.selected.name);
+      axis_Y.text(label.selected.name + ' ' + label.selected.unit);
     };
 
   }
 
-  function ChartController($scope, $http, ChartUpdateService, mlSelectCritereService) {
+  function ChartController($scope, $http, ChartUpdateService) {
     function x(d) {
       return d.ins;
     }
@@ -48,7 +50,7 @@
       height = 300;
 
     // Various scales. These domains make assumptions of data, naturally.
-    var xScale = d3.scale.linear().domain([100000, 8000000]).range([0, width]),//TODO : A CHANGER
+    var xScale = d3.scale.linear().domain([0, 60]).range([0, width]),//TODO : A CHANGER
       yScale = d3.scale.linear().domain([0, 300000]).range([height, 0]),// TODO: A CHANGER
       radiusScale = d3.scale.sqrt().domain([0, 100]).range([0, 40]),
       colorScale = d3.scale.category10();
@@ -81,7 +83,7 @@
       .attr("text-anchor", "end")
       .attr("x", width)
       .attr("y", height - 6)
-      .text("Nombre d'inscrits");
+      .text("Pourcentage du parti");
 
     // Add a y-axis label.
     ChartUpdateService.setYAxis(svg.append("text")
@@ -89,20 +91,17 @@
       .attr("text-anchor", "end")
       .attr("y", 6)
       .attr("dy", ".75em")
-      .attr("transform", "rotate(-90)")
-      .text("RevenuMed"));                       //TODO : A CHANGER
+      .attr("transform", "rotate(-90)"));
 
     // Load the data.
 
-
-
     var tabJSON = [];
-    $scope.tabReg = [];
+    $scope.updateService = ChartUpdateService;
 
-
-    $scope.$watch("tabReg", function (newV, oldV) {
+    $scope.$watch("updateService.tabReg", function (newV, oldV) {
       if (newV) {
         tabJSON = [];
+        console.log('c');
         newV.forEach(createDepJSON);
       }
     });

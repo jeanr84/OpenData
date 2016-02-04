@@ -25,7 +25,7 @@
     <div class="mdl-navigation__link" ng-controller="SelectCritereController">
       <ui-select ng-model="criteria.selected" theme="select2" title="Choisir un critère">
         <ui-select-match placeholder="Critère choisi">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="criteria in criterias | filter: $select.search" ng-click="updateCriteria(criteria)">
+        <ui-select-choices repeat="criteria in criterias | filter: $select.search" refresh="updateCriteria(criteria)" refresh-delay="0" ng-click="updateCriteria(criteria)">
           {{ criteria.name }}
         </ui-select-choices>
       </ui-select>

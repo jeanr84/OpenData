@@ -3,29 +3,15 @@
 
   angular
     .module('material-lite')
-    .service('mlSelectCritereService', SelectCritereService)
-    .controller('SelectCritereController', ['$scope', 'ChartUpdateService', 'mlSelectCritereService', SelectCritereController]);
+    .controller('SelectCritereController', ['$scope', 'ChartUpdateService', SelectCritereController]);
 
-  function SelectCritereService() {
-    var critere = "";
-
-    this.getCritere = function () {
-      return critere;
-    };
-
-    this.setCritere = function (val) {
-      critere = val;
-    };
-  }
-
-  function SelectCritereController($scope, ChartUpdateService, mlSelectCritereService) {
+  function SelectCritereController($scope, ChartUpdateService) {
     $scope.criteria = {};
-    $scope.criteria.selected = { name: 'Taux de chômage', nomMongo: 'tauxChom'};
+    $scope.criteria.selected = { name: 'Taux de chômage', scale: '(en pourcentage)', nomMongo: 'tauxChom'};
     $scope.criterias = [
-      { name: 'Taux de chômage', scale: '(en pourcentage)', nomMongo: 'tauxChom'},
-      { name: 'Revenu médian', scale: '(en milliers d\'€/an)', nomMongo: 'revenuMed'},
-      { name: "Taux d'immigration", scale: '(en pourcentage)', nomMongo: 'pourcentageIm'},
-      { name: 'Nombre de naissances', scale: '(???)', nomMongo: 'nbrNais'}
+      { name: 'Taux de chômage', unit: '(en pourcentage)', nomMongo: 'tauxChom'},
+      { name: 'Revenu médian', unit: '(en milliers d\'€/an)', nomMongo: 'revenuMed'},
+      { name: "Taux d'immigration", unit: '(en pourcentage)', nomMongo: 'pourcentageIm'}
     ];
 
     $scope.updateCriteria = function(label) {
