@@ -29,6 +29,7 @@ router.get('/:parti', function(req, res, next) {
 		'nbrNais' : 1,
 		'revenuMed' : 1,
 		'tauxChom' : 1,
+		'deps' : 1,
 		'ins' : 1,
 		'abs' : 1,
 		'vot' : 1,
