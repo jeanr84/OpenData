@@ -295,7 +295,7 @@ img[src*=svg] {
 }
 
 .mdl-layout__drawer {
-  overflow-y: hidden;
+  overflow-y: hidden !important;
 
   &::-webkit-scrollbar {
     width: 10px;

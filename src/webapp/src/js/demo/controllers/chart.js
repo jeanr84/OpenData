@@ -3,10 +3,23 @@
 
   angular
     .module('material-lite')
-    .controller('ChartController', ['$scope', 'mlSelectCritereService', ChartController])
-    .service;
+    .service('ChartUpdateService', ChartUpdateService)
+    .controller('ChartController', ['$scope', 'ChartUpdateService', 'mlSelectCritereService', ChartController]);
 
-  function ChartController($scope, mlSelectCritereService) {
+  function ChartUpdateService() {
+    var axis_Y = null;
+
+    this.setYAxis = function(axis) {
+      axis_Y = axis;
+    };
+
+    this.setYAxisLabel = function(label) {
+      axis_Y.text(label.selected.name);
+    };
+
+  }
+
+  function ChartController($scope, ChartUpdateService, mlSelectCritereService) {
     function x(d) {
       return d.ins;
     }
@@ -71,13 +84,13 @@
       .text("Nombre d'inscrits");
 
     // Add a y-axis label.
-    svg.append("text")
+    ChartUpdateService.setYAxis(svg.append("text")
       .attr("class", "y d3_label")
       .attr("text-anchor", "end")
       .attr("y", 6)
       .attr("dy", ".75em")
       .attr("transform", "rotate(-90)")
-      .text("RevenuMed");                       //TODO : A CHANGER
+      .text("RevenuMed"));                       //TODO : A CHANGER
 
     // Load the data.
 
