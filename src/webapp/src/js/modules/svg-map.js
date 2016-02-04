@@ -100,7 +100,6 @@
       // API request
       $http.get('http://localhost:3000/region/' + idRegion.substring(3))
         .then(function successCallback(response) {
-
           var deps = response.data.deps,
             returnValue = [],
             l = deps.length;

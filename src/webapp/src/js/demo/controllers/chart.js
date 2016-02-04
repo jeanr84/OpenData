@@ -22,15 +22,15 @@
 
   function ChartController($scope, $http, ChartUpdateService, mlSvgMapService) {
     function x(d) {
-      return d.ins;
+      return d.pourcentageParti * 100;
     }
 
     function y(d) {
-      return d.revenuMed;
+      return d.tauxChomage;
     }
 
     function radius(d) {
-      return d.pourcentageIm;
+      return d.ins;
     }
 
     function color(d) {
@@ -50,8 +50,8 @@
 
     // Various scales. These domains make assumptions of data, naturally.
     var xScale = d3.scale.linear().domain([0, 60]).range([0, width]),//TODO : A CHANGER
-      yScale = d3.scale.linear().domain([0, 300000]).range([height, 0]),// TODO: A CHANGER
-      radiusScale = d3.scale.sqrt().domain([0, 100]).range([0, 40]),
+      yScale = d3.scale.linear().domain([0, 30]).range([height, 0]),// TODO: A CHANGER
+      radiusScale = d3.scale.sqrt().domain([0, 8e6]).range([0, 40]),
       colorScale = d3.scale.category10();
 
     // The x & y axes.
@@ -106,12 +106,11 @@
             createRegJSON();
         }
       }
-    });
+    }, true);
 
     function createDepJSON(element, index, array) {
-      var regJSON = $http.get('http://localhost:3000/departement/' + element + '/LDVG')
+      var regJSON = $http.get('http://localhost:3000/departement/' + element.substring(3) + '/LFN')
         .then(function successCallback(response) {
-          console.log(response.data);
           $scope.response = response;
         }, function errorCallback(response) {
           console.error(response);
@@ -119,7 +118,7 @@
     }
 
     function createRegJSON() {
-      var regJSON = $http.get('http://localhost:3000/region/LDLF')
+      var regJSON = $http.get('http://localhost:3000/region/parti/LFN')
         .then(function successCallback(response) {
           console.log(response.data);
           $scope.response = response;
@@ -141,11 +140,9 @@
 
 
     function draw(regions) {
+      console.log(regions);
 
-      // A bisector since many nation's data is sparsely-defined.
-      var bisect = d3.bisector(function (d) {
-        return d[0];
-      });
+      d3.selectAll("svg g.dots").remove();
 
       // Add a dot per nation. Initialize the data at 1800, and set the colors.
       var dot = svg.append("g")
@@ -186,7 +183,9 @@
             color: "#333",
             pourcentageIm: d.pourcentageIm,
             revenuMed: d.revenuMed,
-            ins: d.ins
+            tauxChomage: d.tauxChom,
+            ins: d.ins,
+            pourcentageParti: d.liste[0].pourcentage
           };
         });
       }
