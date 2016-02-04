@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var RegionSchema = new mongoose.Schema({
 	_id: String,	
-	nomR: String,
+	nom: String,
 	nbrIm: Number,
 	pourventageIm: Number,
 	revenuMed: Number,
