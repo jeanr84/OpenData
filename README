@@ -1,4 +1,12 @@
-SOURCES DES DONNEES :
+Jean Robin
+Lacroix Adrien
+Laporte Laura
+Renouvin Guillaume
+
+
+
+*** Source de données ***
+
 - Données sur le chomage : http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713
 - Données d’immigration par départements : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012
 - Données d’immigration par régions : http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012#tab_1=2
@@ -10,31 +18,29 @@ SOURCES DES DONNEES :
 
 
 
-Pour executer le parser:
-java -jar parser.jar res/data/regionales/csv/Reg_15_Resultats_Communes_T1.csv
+*** Pre requis ***
+
+git clone https://github.com/jeanr84/OpenData.git
+
+brew install nodejs
+npm install -g express-generator@4
+brew install mongodb && mongod
+
+sudo apt-get install libkrb5-dev
 
 
-RAJOUT DES DONNEES DANS MONGODB :
-Rajout des données pour la collection chomages dans mongoDB : 
-mongoimport --db openData --collection chomages --type csv --file res/data/chomage.csv --fields departement,tauxChomage
+mongod // Lance MongoDB
 
-Rajout des données pour la collection nomlistes dans mongoDB :
-mongoimport --db openData --collection nomlistes --type json --file res/data/nomListe.json
+*** Initialisation de la BD Mongo ***
+./initMongo.sh
 
-Rajout des données pour la collection regionsavecdepartements dans mongoDB :
-mongoimport --db openData --collection regionsavecdepartements --file res/data/regionsDepartements.json
 
-Rajout des données pour la collection immigrationregions dans mongoDB : 
-mongoimport --db openData --collection immigrationregions --type csv --file res/data/immigration/immigrationRegions.csv --fields _id,nbImmigres,poucentageImmigres
 
-Rajout des données pour la collection immigrationdepartements dans mongoDB :
-mongoimport --db openData --collection immigrationdepartements --type csv --file res/data/immigration/immigrationDepartements.csv --fields _id,nbImmigres,poucentageImmigres
+*** Install API RESTful Projet OpenData ***
 
-Rajout des données pour la collection naissancesdepartements dans mongoDB :
-mongoimport --db openData --collection naissancesdepartements --type csv --file res/data/naissances/naissancesDepartements.csv --fields _id,nbNaissances
+cd opendata/server_api
 
-Rajout des données pour la collection naissancesdepartements dans mongoDB :
-mongoimport --db openData --collection revenudepartements --type csv --file res/data/revenuMedian/revenuMedianDepartements.csv --fields _id,revenuMedian
+npm install
+npm install mongoose
 
-Rajout des données pour la collection naissancesdepartements dans mongoDB :
-mongoimport --db openData --collection revenuregions --type csv --file res/data/revenuMedian/revenuMedianRegions.csv --fields _id,revenuMedian
+./bin.www // Lance le serveur
