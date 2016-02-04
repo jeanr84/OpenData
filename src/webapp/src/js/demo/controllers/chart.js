@@ -72,7 +72,6 @@
     // Various scales. These domains make assumptions of data, naturally.
     var xScale = d3.scale.linear().domain([0, 60]).range([0, width]);
     var radiusScale = d3.scale.sqrt().domain([0, 8e6]).range([0, 40]);
-    var colorScale = d3.scale.category10();
 
     // Create the SVG container and set the origin.
     var svg = d3.select("#d3_chart").append("svg")
@@ -142,7 +141,6 @@
     }, true);
 
     function createDepJSON(element, index, array) {
-      console.log('http://localhost:3000/departement/' + element.substring(3) + '/' + ChartUpdateService.party._id);
       var regJSON = $http.get('http://localhost:3000/departement/' + element.substring(3) + '/' + ChartUpdateService.party._id)
         .then(function successCallback(response) {
           $scope.response = response;
@@ -152,7 +150,6 @@
     }
 
     function createRegJSON() {
-      console.log('http://localhost:3000/region/parti/' + ChartUpdateService.party._id);
       var regJSON = $http.get('http://localhost:3000/region/parti/' + ChartUpdateService.party._id)
         .then(function successCallback(response) {
           $scope.response = response;
@@ -175,7 +172,6 @@
             min = tabJSON[i][ChartUpdateService.criteria.nomMongo];
           }
         }
-        console.log(min + " " + max);
         ChartUpdateService.changeScale(min, max);
         draw(tabJSON);
       }
@@ -192,7 +188,7 @@
         .enter().append("circle")
         .attr("class", "d3_dot")
         .style("fill", function (d) {
-          return colorScale(color(d));
+          return d.color;
         })
         .call(position)
         .sort(order);
@@ -218,10 +214,13 @@
 
       function interpolateData() {
         return regions.map(function (d) {
+          var id = d._id < 10 ? '0' + d._id : d._id;
+          var fillValue = mlSvgMapService.isInDetailMode() ? mlSvgMapService.getDepartement('dep' + id).attr('fill')
+            : mlSvgMapService.getRegion('reg' + id).attr('fill');
           return {
             nom: d.nom,
-            color: "#333",
-            tauxChom: d.tauxChom,
+            color: fillValue,
+            tauxChom : d.tauxChom,
             revenuMed: d.revenuMed,
             pourcentageIm: d.pourcentageIm,
             ins: d.ins,
