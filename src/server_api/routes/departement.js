@@ -23,7 +23,7 @@ router.get('/:id', function(req, res, next) {
 /* GET /departement/idR/parti */
 router.get('/:idR/:parti', function(req, res, next) {
   Todo.aggregate([
-	    {$match: {'_id': req.params.idR}},
+	    {$match: {'idR': req.params.idR}},
 	    {$project: {
 		liste: {$filter: {
 		    input: '$liste',
