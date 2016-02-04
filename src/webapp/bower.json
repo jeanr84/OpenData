@@ -32,9 +32,11 @@
     "animate.css": "3.4.0",
     "material-design-lite": "1.0.6",
     "ng-table": "~0.8.3",
-    "sass-flex-mixin": "~1.0.1"
+    "sass-flex-mixin": "~1.0.1",
+    "d3-tip": "^0.6.7"
   },
   "resolutions": {
-    "angular": "1.4.9"
+    "angular": "1.4.9",
+    "d3": "3.5.5"
   }
 }
