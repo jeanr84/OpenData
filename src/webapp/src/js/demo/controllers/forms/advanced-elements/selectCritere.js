@@ -4,7 +4,7 @@
   angular
     .module('material-lite')
     .service('mlSelectCritereService', SelectCritereService)
-    .controller('SelectCritereController', ['$scope', 'mlSelectCritereService', SelectCritereController]);
+    .controller('SelectCritereController', ['$scope', 'ChartUpdateService', 'mlSelectCritereService', SelectCritereController]);
 
   function SelectCritereService() {
     var critere = "";
@@ -18,20 +18,20 @@
     };
   }
 
-  function SelectCritereController($scope, mlSelectCritereService) {
-    $scope.choixCritere = {};
-    $scope.criteres = [
-      { name: 'Taux de chomage', nomMongo: 'tauxChom'},
-      { name: 'Revenu median', nomMongo: 'revenuMed'},
-      { name: "Taux d'immigration", nomMongo: 'pourcentageIm'},
-      { name: 'Nombre de naissance',    nomMongo: 'nbrNais'},
+  function SelectCritereController($scope, ChartUpdateService, mlSelectCritereService) {
+    $scope.criteria = {};
+    $scope.criteria.selected = { name: 'Taux de chômage', nomMongo: 'tauxChom'};
+    $scope.criterias = [
+      { name: 'Taux de chômage', scale: '(en pourcentage)', nomMongo: 'tauxChom'},
+      { name: 'Revenu médian', scale: '(en milliers d\'€/an)', nomMongo: 'revenuMed'},
+      { name: "Taux d'immigration", scale: '(en pourcentage)', nomMongo: 'pourcentageIm'},
+      { name: 'Nombre de naissances', scale: '(???)', nomMongo: 'nbrNais'}
     ];
-    $scope.selectedState = '';
 
-
-    $scope.selectCritere = function (choixCritere) {
-      mlSelectCritereService.setCritere(choixCritere.selected.name);
+    $scope.updateCriteria = function(label) {
+      ChartUpdateService.setYAxisLabel(label);
     };
+
   }
 
 })();
