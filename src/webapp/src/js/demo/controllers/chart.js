@@ -10,7 +10,8 @@
     var svg = null;
     var h = null;
 
-    var tabReg = [];
+    this.tabReg = [];
+    this.party = {_id: "LFN", nomL: "Front National"};
 
     this.setYAxis = function (axis) {
       axis_Y = axis;
@@ -18,7 +19,6 @@
 
     this.setYScale = function (_svg, height) {
       svg = _svg;
-      console.log(svg);
       h = height;
     };
 
@@ -106,7 +106,18 @@
     var tabJSON = [];
     $scope.updateService = ChartUpdateService;
 
-    $scope.$watch("updateService.tabReg", function (newV, oldV) {
+    $scope.$watch('updateService.party', function (newV, oldV) {
+      if (newV) {
+        tabJSON = [];
+        if (mlSvgMapService.isInDetailMode()) {
+          newV.forEach(createDepJSON);
+        } else {
+          createRegJSON();
+        }
+      }
+    });
+
+    $scope.$watch('updateService.tabReg', function (newV, oldV) {
       if (newV) {
         tabJSON = [];
         if (mlSvgMapService.isInDetailMode()) {
@@ -118,7 +129,8 @@
     }, true);
 
     function createDepJSON(element, index, array) {
-      var regJSON = $http.get('http://localhost:3000/departement/' + element.substring(3) + '/LFN')
+      console.log('http://localhost:3000/departement/' + element.substring(3) + '/' + ChartUpdateService.party._id);
+      var regJSON = $http.get('http://localhost:3000/departement/' + element.substring(3) + '/' + ChartUpdateService.party._id)
         .then(function successCallback(response) {
           $scope.response = response;
         }, function errorCallback(response) {
@@ -127,16 +139,15 @@
     }
 
     function createRegJSON() {
-      var regJSON = $http.get('http://localhost:3000/region/parti/LFN')
+      console.log('http://localhost:3000/region/parti/' + ChartUpdateService.party._id);
+      var regJSON = $http.get('http://localhost:3000/region/parti/' + ChartUpdateService.party._id)
         .then(function successCallback(response) {
-          console.log("couc");
           $scope.response = response;
         }, function errorCallback(response) {
           console.error(response);
         });
     }
-
-
+    
     $scope.$watch("response", function (newV, oldV) {
       if (newV) {
         tabJSON = tabJSON.concat(newV.data);
@@ -158,8 +169,6 @@
     });
 
     function draw(regions) {
-      console.log(regions);
-
       d3.selectAll("svg g.dots").remove();
 
       // Add a dot per nation. Initialize the data at 1800, and set the colors.
@@ -203,7 +212,7 @@
             revenuMed: d.revenuMed,
             tauxChomage: d.tauxChom,
             ins: d.ins,
-            pourcentageParti: d.liste[0].pourcentage
+            pourcentageParti: (d.liste.length !== 0 ? d.liste[0].pourcentage : -1)
           };
         });
       }
