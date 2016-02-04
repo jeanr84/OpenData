@@ -124,6 +124,7 @@
 
     $scope.$watch('updateService.criteria', function (newV, oldV) {
       if (newV) {
+        computeScale();
         draw(tabJSON);
       }
     });
@@ -150,6 +151,34 @@
       }
     }, true);
 
+    function computeScale() {
+      if (tabJSON.length !== 0 && tabJSON[0].liste.length !== 0) {
+        var arrayLength = tabJSON.length;
+        var minX = tabJSON[0].liste[0].pourcentage,
+          maxX = tabJSON[0].liste[0].pourcentage,
+          minY = tabJSON[0][ChartUpdateService.criteria.nomMongo],
+          maxY = tabJSON[0][ChartUpdateService.criteria.nomMongo];
+
+        for (var i = 1; i < arrayLength; i++) {
+          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] > maxY) {
+            maxY = tabJSON[i][ChartUpdateService.criteria.nomMongo];
+          }
+          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] < minY) {
+            minY = tabJSON[i][ChartUpdateService.criteria.nomMongo];
+          }
+
+          if (tabJSON[i].liste.length !== 0 && tabJSON[i].liste[0].pourcentage > maxX) {
+            maxX = tabJSON[i].liste[0].pourcentage;
+          }
+          if (tabJSON[i].liste.length !== 0 && tabJSON[i].liste[0].pourcentage < minX) {
+            minX = tabJSON[i].liste[0].pourcentage;
+          }
+        }
+        ChartUpdateService.changeScaleY(minY, maxY);
+        ChartUpdateService.changeScaleX(minX, maxX);
+      }
+    }
+
     function createDepJSON(element, index, array) {
       var regJSON = $http.get('http://localhost:3000/departement/' + element.substring(3) + '/' + ChartUpdateService.party._id)
         .then(function successCallback(response) {
@@ -171,32 +200,7 @@
     $scope.$watch("response", function (newV, oldV) {
       if (newV) {
         tabJSON = tabJSON.concat(newV.data);
-        var arrayLength = tabJSON.length;
-        if (tabJSON[0].liste.length !== 0) {
-          var minX = tabJSON[0].liste[0].pourcentage,
-            maxX = tabJSON[0].liste[0].pourcentage,
-            minY = tabJSON[0][ChartUpdateService.criteria.nomMongo],
-            maxY = tabJSON[0][ChartUpdateService.criteria.nomMongo];
-
-          for (var i = 1; i < arrayLength; i++) {
-            if (tabJSON[i][ChartUpdateService.criteria.nomMongo] > maxY) {
-              maxY = tabJSON[i][ChartUpdateService.criteria.nomMongo];
-            }
-            if (tabJSON[i][ChartUpdateService.criteria.nomMongo] < minY) {
-              minY = tabJSON[i][ChartUpdateService.criteria.nomMongo];
-            }
-
-            if (tabJSON[i].liste.length !== 0 && tabJSON[i].liste[0].pourcentage > maxX) {
-                maxX = tabJSON[i].liste[0].pourcentage;
-            }
-            if (tabJSON[i].liste.length !== 0 && tabJSON[i].liste[0].pourcentage < minX) {
-              minX = tabJSON[i].liste[0].pourcentage;
-            }
-          }
-          ChartUpdateService.changeScaleY(minY, maxY);
-          ChartUpdateService.changeScaleX(minX, maxX);
-        }
-
+        computeScale();
         draw(tabJSON);
       }
     });

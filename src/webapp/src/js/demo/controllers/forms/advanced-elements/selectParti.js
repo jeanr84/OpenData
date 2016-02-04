@@ -3,7 +3,7 @@
 
   angular
     .module('material-lite')
-    .controller('selectPartiController', ['$scope', '$http', 'ChartUpdateService', SelectPartiController]);
+    .controller('SelectPartiController', ['$scope', '$http', 'ChartUpdateService', SelectPartiController]);
 
   function SelectPartiController($scope, $http, ChartUpdateService) {
     $http.get('http://localhost:3000/nomListe')
