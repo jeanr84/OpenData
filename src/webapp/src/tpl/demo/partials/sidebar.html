@@ -12,11 +12,10 @@
     </ml-menu-item>
 
     <div class="mdl-navigation__link" ng-controller="selectPartiController">
-      <ui-select ng-model="choixParti.selected" ng-maxlength="5" theme="select2" ng-disabled="disabled" title="Choisir un critère" search-enabled="true">
+      <ui-select ng-model="parti.selected" theme="select2" title="Choisir un parti" search-enabled="true">
         <ui-select-match placeholder="Parti choisi">{{$select.selected.nomL}}</ui-select-match>
-         <ui-select-choices repeat="choixParti in partis | filter: $select.search">
-           <div ng-bind-html="choixParti.nomL | highlight: $select.search"></div>
-
+         <ui-select-choices repeat="parti in partis | filter: $select.search" ng-click="updateParty(parti)">
+           <div ng-bind-html="parti.nomL | highlight: $select.search"></div>
          </ui-select-choices>
       </ui-select>
     </div>
