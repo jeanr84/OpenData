@@ -3,7 +3,8 @@
 
   angular
     .module('material-lite')
-    .controller('ChartController', ['$scope', 'mlSelectCritereService', ChartController]);
+    .controller('ChartController', ['$scope', 'mlSelectCritereService', ChartController])
+    .service;
 
   function ChartController($scope, mlSelectCritereService) {
     function x(d) {
