@@ -9,6 +9,7 @@
     var axis_Y = null;
     var svg = null;
     var h = null;
+    var w = null;
 
     this.criteria = { name: 'Taux de chômage', unit: '(en pourcentage)', nomMongo: 'tauxChom'};
     this.tabReg = [];
@@ -20,11 +21,20 @@
 
     this.setYScale = function (_svg, height) {
       svg = _svg;
-      h = height;
+      w = height;
+    };
+
+    this.setXScale = function (_svg, width) {
+      svg = _svg;
+      h = width;
     };
 
     this.yScale = function (d) {
       return this.ys(d);
+    };
+
+    this.xScale = function (d) {
+      return this.xs(d);
     };
 
     this.setYAxisLabel = function (label) {
@@ -32,12 +42,20 @@
       axis_Y.text(label.selected.name + ' ' + label.selected.unit);
     };
 
-    this.changeScale = function (min, max) {
+    this.changeScaleY = function (min, max) {
       d3.select("svg .y.d3_axis").remove();
       var ecart = (max - min) * 0.2;
       this.ys = d3.scale.linear().domain([min - ecart, max + ecart]).range([h, 0]);
       var yAxis = d3.svg.axis().scale(this.ys).orient("left");
       svg.append("g").attr("class", "y d3_axis").call(yAxis);
+    };
+
+    this.changeScaleX = function (min, max) {
+      d3.select("svg .x.d3_axis").remove();
+      var ecart = (max - min) * 0.2;
+      this.xs = d3.scale.linear().domain([min - ecart, max + ecart]).range([0, w]);
+      var xAxis = d3.svg.axis().orient("bottom").scale(this.xs).ticks(8, d3.format(",d"));
+      svg.append("g").attr("class", "x d3_axis").attr("transform", "translate(0," + h + ")").call(xAxis);
     };
   }
 
@@ -70,7 +88,6 @@
       height = 300;
 
     // Various scales. These domains make assumptions of data, naturally.
-    var xScale = d3.scale.linear().domain([0, 60]).range([0, width]);
     var radiusScale = d3.scale.sqrt().domain([0, 8e6]).range([0, 40]);
     var colorScale = d3.scale.category10();
 
@@ -81,14 +98,7 @@
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    // The x & y axes.
-    var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(8, d3.format(",d"));
-
-    // Add the x-axis.
-    svg.append("g")
-      .attr("class", "x d3_axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+    ChartUpdateService.setXScale(svg, width);
 
     // Add an x-axis label.
     svg.append("text")
@@ -165,18 +175,28 @@
       if (newV) {
         tabJSON = tabJSON.concat(newV.data);
         var arrayLength = tabJSON.length;
-        var min = tabJSON[0][ChartUpdateService.criteria.nomMongo];
-        var max = tabJSON[0][ChartUpdateService.criteria.nomMongo];
+        var minY = tabJSON[0][ChartUpdateService.criteria.nomMongo];
+        var maxY = tabJSON[0][ChartUpdateService.criteria.nomMongo];
         for (var i = 1; i < arrayLength; i++) {
-          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] > max) {
-            max = tabJSON[i][ChartUpdateService.criteria.nomMongo];
+          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] > maxY) {
+            maxY = tabJSON[i][ChartUpdateService.criteria.nomMongo];
           }
-          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] < min) {
-            min = tabJSON[i][ChartUpdateService.criteria.nomMongo];
+          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] < minY) {
+            minY = tabJSON[i][ChartUpdateService.criteria.nomMongo];
+          }
+
+          var minX = tabJSON[0].liste[0].pourcentage;
+          var maxX = tabJSON[0].liste[0].pourcentage
+          if (tabJSON[i].liste[0].pourcentage > maxX) {
+            maxX = tabJSON[i].liste[0].pourcentage;
+          }
+          if (tabJSON[i].liste[0].pourcentage < minX) {
+            minX = tabJSON[i].liste[0].pourcentage;
           }
         }
-        console.log(min + " " + max);
-        ChartUpdateService.changeScale(min, max);
+        console.log(minX + " " + maxX);
+        ChartUpdateService.changeScaleY(minY, maxY);
+        ChartUpdateService.changeScaleX(minX, maxX);
         draw(tabJSON);
       }
     });
@@ -206,7 +226,7 @@
       // Positions the dots based on data.
       function position(dot) {
         dot.attr("cx", function (d) {
-            return xScale(x(d));
+            return ChartUpdateService.xScale(x(d));
           })
           .attr("cy", function (d) {
             return ChartUpdateService.yScale(y(d));
