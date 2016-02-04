@@ -4,7 +4,7 @@
   angular
     .module('material-lite')
     .service('ChartUpdateService', ChartUpdateService)
-    .controller('ChartController', ['$scope', '$http', 'ChartUpdateService', 'mlSelectCritereService', ChartController]);
+    .controller('ChartController', ['$scope', '$http', 'ChartUpdateService', 'mlSvgMapService', 'mlSelectCritereService', ChartController]);
 
   function ChartUpdateService() {
     var axis_Y = null;
@@ -19,7 +19,7 @@
 
   }
 
-  function ChartController($scope, $http, ChartUpdateService, mlSelectCritereService) {
+  function ChartController($scope, $http, ChartUpdateService, mlSvgMapService, mlSelectCritereService) {
     function x(d) {
       return d.ins;
     }
@@ -103,12 +103,26 @@
     $scope.$watch("tabReg", function (newV, oldV) {
       if (newV) {
         tabJSON = [];
-        newV.forEach(createDepJSON);
+        if (mlSvgMapService.isInDetailMode()) {
+          newV.forEach(createDepJSON);
+        } else {
+            createRegJSON();
+        }
       }
     });
 
     function createDepJSON(element, index, array) {
       var regJSON = $http.get('http://localhost:3000/departement/' + element + '/LDVG')
+        .then(function successCallback(response) {
+          console.log(response.data);
+          $scope.response = response;
+        }, function errorCallback(response) {
+          console.error(response);
+        });
+    }
+
+    function createRegJSON() {
+      var regJSON = $http.get('http://localhost:3000/region/LDLF')
         .then(function successCallback(response) {
           console.log(response.data);
           $scope.response = response;
