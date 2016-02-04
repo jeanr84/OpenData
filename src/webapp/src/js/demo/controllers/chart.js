@@ -3,9 +3,9 @@
 
   angular
     .module('material-lite')
-    .controller('ChartController', ['$scope', 'mlSelectCritereService', ChartController]);
+    .controller('ChartController', ['$scope', '$http', 'mlSelectCritereService', ChartController]);
 
-  function ChartController($scope, mlSelectCritereService) {
+  function ChartController($scope, $http, mlSelectCritereService) {
     function x(d) {
       return d.ins;
     }
@@ -23,10 +23,10 @@
     }
 
     function key(d) {
-      return d.nomR;
+      return d.nom;
     }
 
-    var container =  d3.select("#d3_chart").node().getBoundingClientRect();
+    var container = d3.select("#d3_chart").node().getBoundingClientRect();
 
     // Chart dimensions.
     var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5},
@@ -81,80 +81,87 @@
     // Load the data.
 
 
+    var tabReg = ["75", "76", "84"];
+    var tabJSON = [];
 
-      d3.json('http://localhost:3000/region', function(regions) {
+    function createDepJSON(element, index, array) {
+      var regJSON = $http.get('http://localhost:3000/departement/' + element + '/LDVG')
+        .then(function successCallback(response) {
+          console.log(response.data);
+          $scope.response = response;
+        }, function errorCallback(response) {
+          console.error(response);
+        });
+    }
 
-        // A bisector since many nation's data is sparsely-defined.
-        var bisect = d3.bisector(function (d) {
-          return d[0];
+    $scope.$watch("response", function (newV, oldV) {
+      if (newV) {
+        tabJSON = tabJSON.concat(newV.data);
+        draw(tabJSON);
+      }
+    });
+
+    tabReg.forEach(createDepJSON);
+
+
+    function draw(regions) {
+
+      // A bisector since many nation's data is sparsely-defined.
+      var bisect = d3.bisector(function (d) {
+        return d[0];
+      });
+
+      // Add a dot per nation. Initialize the data at 1800, and set the colors.
+      var dot = svg.append("g")
+        .attr("class", "dots")
+        .selectAll(".dot")
+        .data(interpolateData())
+        .enter().append("circle")
+        .attr("class", "d3_dot")
+        .style("fill", function (d) {
+          return colorScale(color(d));
+        })
+        .call(position)
+        .sort(order);
+
+      // Add a title.
+      dot.append("title")
+        .text(function (d) {
+          return d.nom;
         });
 
-        // Add a dot per nation. Initialize the data at 1800, and set the colors.
-        var dot = svg.append("g")
-          .attr("class", "dots")
-          .selectAll(".dot")
-          .data(interpolateData())
-          .enter().append("circle")
-          .attr("class", "d3_dot")
-          .style("fill", function (d) {
-            return colorScale(color(d));
+      // Positions the dots based on data.
+      function position(dot) {
+        dot.attr("cx", function (d) {
+            return xScale(x(d));
           })
-          .call(position)
-          .sort(order);
-
-        // Add a title.
-        dot.append("title")
-          .text(function (d) {
-            return d.nomR;
+          .attr("cy", function (d) {
+            return yScale(y(d));
+          })
+          .attr("r", function (d) {
+            return radiusScale(radius(d));
           });
+      }
 
-        // Positions the dots based on data.
-        function position(dot) {
-          dot.attr("cx", function (d) {
-              return xScale(x(d));
-            })
-            .attr("cy", function (d) {
-              return yScale(y(d));
-            })
-            .attr("r", function (d) {
-              return radiusScale(radius(d));
-            });
-        }
+      function interpolateData() {
+        return regions.map(function (d) {
+          return {
+            nom: d.nom,
+            color: "#333",
+            pourcentageIm: d.pourcentageIm,
+            revenuMed: d.revenuMed,
+            ins: d.ins
+          };
+        });
+      }
 
-        function interpolateData() {
-          return regions.map(function (d) {
-            return {
-              nomR : d.nomR,
-              color : "#333",
-              pourcentageIm : d.pourcentageIm,
-              revenuMed : d.revenuMed,
-              ins : d.ins
-            };
-          });
-        }
+      // Defines a sort order so that the smallest dots are drawn on top.
+      function order(a, b) {
+        return radius(b) - radius(a);
+      }
 
-        // Defines a sort order so that the smallest dots are drawn on top.
-        function order(a, b) {
-          return radius(b) - radius(a);
-        }
+    }
 
-
-        /*
-         var deps = response.data.deps,
-         returnValue = [],
-         l = deps.length;
-         for (var i = 0; i < l; i++) {
-         returnValue.push(deps[i].dep);
-         }
-
-         return returnValue;
-         */
-      }, function errorCallback(response) {
-        console.error(response);
-
-
-
-      });
   }
 })();
 
