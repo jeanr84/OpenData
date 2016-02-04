@@ -10,6 +10,7 @@
     var svg = null;
     var h = null;
 
+    this.criteria = { name: 'Taux de chômage', unit: '(en pourcentage)', nomMongo: 'tauxChom'};
     this.tabReg = [];
     this.party = {_id: "LFN", nomL: "Front National"};
 
@@ -22,14 +23,20 @@
       h = height;
     };
 
+    this.yScale = function (d) {
+      return this.ys(d);
+    };
+
     this.setYAxisLabel = function (label) {
+      this.criteria = label.selected;
       axis_Y.text(label.selected.name + ' ' + label.selected.unit);
     };
 
     this.changeScale = function (min, max) {
       d3.select("svg .y.d3_axis").remove();
-      var yScale = d3.scale.linear().domain([min, max]).range([h, 0]);
-      var yAxis = d3.svg.axis().scale(yScale).orient("left");
+      var ecart = (max - min) * 0.2;
+      this.ys = d3.scale.linear().domain([min - ecart, max + ecart]).range([h, 0]);
+      var yAxis = d3.svg.axis().scale(this.ys).orient("left");
       svg.append("g").attr("class", "y d3_axis").call(yAxis);
     };
   }
@@ -40,7 +47,7 @@
     }
 
     function y(d) {
-      return d.tauxChomage;
+      return d[ChartUpdateService.criteria.nomMongo];
     }
 
     function radius(d) {
@@ -106,6 +113,12 @@
     var tabJSON = [];
     $scope.updateService = ChartUpdateService;
 
+    $scope.$watch('updateService.criteria', function (newV, oldV) {
+      if (newV) {
+        draw(tabJSON);
+      }
+    });
+
     $scope.$watch('updateService.party', function (newV, oldV) {
       if (newV) {
         tabJSON = [];
@@ -147,19 +160,19 @@
           console.error(response);
         });
     }
-    
+
     $scope.$watch("response", function (newV, oldV) {
       if (newV) {
         tabJSON = tabJSON.concat(newV.data);
         var arrayLength = tabJSON.length;
-        var min = tabJSON[0].tauxChom;
-        var max = tabJSON[0].tauxChom;
+        var min = tabJSON[0][ChartUpdateService.criteria.nomMongo];
+        var max = tabJSON[0][ChartUpdateService.criteria.nomMongo];
         for (var i = 1; i < arrayLength; i++) {
-          if (tabJSON[i].tauxChom > max) {
-            max = tabJSON[i].tauxChom;
+          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] > max) {
+            max = tabJSON[i][ChartUpdateService.criteria.nomMongo];
           }
-          if (tabJSON[i].tauxChom < min) {
-            min = tabJSON[i].tauxChom;
+          if (tabJSON[i][ChartUpdateService.criteria.nomMongo] < min) {
+            min = tabJSON[i][ChartUpdateService.criteria.nomMongo];
           }
         }
         console.log(min + " " + max);
@@ -196,7 +209,7 @@
             return xScale(x(d));
           })
           .attr("cy", function (d) {
-            return yScale(y(d));
+            return ChartUpdateService.yScale(y(d));
           })
           .attr("r", function (d) {
             return radiusScale(radius(d));
@@ -208,9 +221,9 @@
           return {
             nom: d.nom,
             color: "#333",
-            pourcentageIm: d.pourcentageIm,
+            tauxChom: d.tauxChom,
             revenuMed: d.revenuMed,
-            tauxChomage: d.tauxChom,
+            pourcentageIm: d.pourcentageIm,
             ins: d.ins,
             pourcentageParti: (d.liste.length !== 0 ? d.liste[0].pourcentage : -1)
           };
