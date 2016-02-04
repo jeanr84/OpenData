@@ -31,7 +31,7 @@ router.get('/:idR/:parti', function(req, res, next) {
 		    cond: {$eq: ['$$liste.nomP', req.params.parti]}
 		}},
 		'_id': 1,
-		'nomD' : 1,
+		'nom' : 1,
 		'idR' : 1,
 		'nbrIm' : 1,
 		'pourcentageIm' : 1,

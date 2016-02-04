@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var DepartementSchema = new mongoose.Schema({
 	_id: String,	
-	nomD: String,
+	nom: String,
 	idR: String,
 	nbrIm: Number,
 	pourcentageIm: Number,

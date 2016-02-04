@@ -117,9 +117,6 @@
     this.showDepartements = function (associatedRegion, departements) {
       var l = departements.length;
       this.addClass(associatedRegion, 'transparent');
-      for (var i = 0; i < l; i++) {
-        var dep = this.getDepartement('dep' + departements[i]);
-      }
     };
 
     this.hideDepartements = function (associatedRegion) {
