@@ -12,9 +12,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/* GET /region/id */
+router.get('/:id', function(req, res, next) {
+  Todo.findOne({ '_id': req.params.id }, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
-/* GET /region/parti */
-router.get('/:parti', function(req, res, next) {
+/* GET /region/parti/parti */
+router.get('/parti/:parti', function(req, res, next) {
   Todo.aggregate([
 	    {$project: {
 		liste: {$filter: {
