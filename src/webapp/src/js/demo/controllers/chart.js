@@ -95,8 +95,17 @@
     // Load the data.
 
 
-    var tabReg = ["75", "76", "84"];
+
     var tabJSON = [];
+    $scope.tabReg = [];
+
+
+    $scope.$watch("tabReg", function (newV, oldV) {
+      if (newV) {
+        tabJSON = [];
+        newV.forEach(createDepJSON);
+      }
+    });
 
     function createDepJSON(element, index, array) {
       var regJSON = $http.get('http://localhost:3000/departement/' + element + '/LDVG')
@@ -108,6 +117,8 @@
         });
     }
 
+
+
     $scope.$watch("response", function (newV, oldV) {
       if (newV) {
         tabJSON = tabJSON.concat(newV.data);
@@ -115,7 +126,7 @@
       }
     });
 
-    tabReg.forEach(createDepJSON);
+
 
 
     function draw(regions) {
