@@ -29,17 +29,19 @@
 
               <div class="mdl-tabs__panel is-active" id="starks-panel">
                 <div class="p-20">
-                  Notre projet "Challenge Open Data" se porte sur les résultats des élections régionales de 2015. Ces
-                  données ont été mises en corrélation avec les données sur le chômage, le revenu médian et les données
-                  d'immigration.
-                  Les sources des données sont les suivantes :
+                  Notre projet "Challenge Open Data" porte sur les résultats du premier tous des élections régionales de 2015.
+
+                  Le but de ce projet est de croiser des données micro et macro économiques telles que le taux de chômage,
+                  le reveu médian et le taux d'immigration dans l'optique de trouver certaines corrélations.
+
+                  <h3>Source des données</h3>
                   <ul>
                     <li><a href="http://www.bdm.insee.fr/bdm2/choixCriteres?codeGroupe=713">Données sur le chômage</a>
                     </li>
                     <li><a href="http://www.insee.fr/fr/themes/tableau.asp?reg_id=99&ref_id=TCRD_012">Données
                       d’immigration par départements et régions</a></li>
-                    <li><a href="http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat">Données
-                      sur les statistiques globales (utilisées pour le nombre de naissances)</a></li>
+<!-- PAS UTILISE                   <li><a href="http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=base-cc-resume-stat">Données
+                      sur les statistiques globales (utilisées pour le nombre de naissances)</a></li> -->
                     <li><a href="http://www.insee.fr/fr/themes/detail.asp?reg_id=99&ref_id=revenu-pauvrete-menage">Données
                       sur le revenu médian par départements et régions</a>
                     </li>
@@ -47,25 +49,42 @@
                       du tour 1 pour les élections départementales 2015</a>
                     </li>
                   </ul>
-
-                  Les données récupérées ont été parsées afin de pouvoir les intégrer à une base de données MongoDB.
-                  Nous avons pu les mettre en relation afin d'obtenir 4 tables :
+                  <h3>Transformation des données bruts</h3>
+                  Dans un premier temps nous avons du transformer les données que nous avons récupérés. En effet,
+                  celles-ci comportaient beaucoup d'informations sans réelles importances et se trouvaient dans
+                  différents formats (CSV, JSON, XLS).
+                  <br>
+                  Nous avons donc codé un parser en Java permettant de récupérer les données que nous pensons intéressantes
+                  dans chacun de nos fichiers. Le principale avantage de ce parser et qu'il permet de rajouter facilement
+                  des sources de données diverses.
+                  <br>
+                  Pour les données de votes, nous les avons récupérés par communes, puis aggrégé pour avoir des
+                  résultats par département et par région.
+                  <br>
+                  Pour les autres données, notamment les critères sur l'axe des ordonnées (taux de chomage,
+                  taux d'immigration et revenu médian) nous avons parfois dû appliquer quelques petites transformations,
+                  lorsque celle-ci n'était pas directement retrouvables dans nos sources. Par exemple, pour obtenir
+                  une approximation du revenu médian par région nous avons dû ponderer le revenu médian de chacun
+                  des départements de cette région.
+                  <h3>Stockage</h3>
+                  Le parser permet comme nous l'avons vu de transformer nos données bruts pour ensuite les stocker
+                  dans une base de données MongoDB comportant 4 tables :
                   <ul>
-                    <li>Les départements</li>
-                    <li>Les régions</li>
-                    <li>Les communes</li>
-                    <li>Les partis</li>
+                    <li>Départements</li>
+                    <li>Régions</li>
+                    <li>Communes</li>
+                    <li>Partis</li>
                   </ul>
 
                   Le schéma suivant illustre la répartition des données dans la base :
 
                   <img alt="schema" class="img-responsive" src="img/ModeleDeClasse.png"/>
 
-                  <br/>Le schéma d'architecture est le suivant :
+                  <h3>Architecture</h3>
 
                   <img alt="schema" class="img-responsive" src="img/Architecture.png"/>
 
-                  <br/>Les technologies utilisées sont les suivantes :<br/>
+                  <h3>Technologies utilisées</h3>
                   La base de données utilisée est une base MongoDB, avec importations de fichiers .csv et .json. Le parsage a été effectué en langage Java.<br/>
                   Au niveau du serveur, nous avons implementé une API RESTful utilisant l'environnement JavaScript Node.js et le framework Express. Ce serveur communique avec la base MongoDB via des modèles définis pour assurer la validité des données, et réceptionne les requêtes de l'application via des routes définies.<br/>
                   Au niveau de l'interface utilisateur,
