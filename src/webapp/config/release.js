@@ -24,7 +24,7 @@ module.exports.tasks = {
             'config/**',
             'demo/**',
             'src/**',
-            '.gitattributes', '.gitignore', 'bower.json', 'Gruntfile.js', 'package.json', 'README.md', 'CHANGELOG.md',
+            '.gitattributes', '.gitignore', 'bower.json', 'Gruntfile.js', 'package.json', 'CHANGELOG.md',
           ],
           dest: '.'
         }
